@@ -9,30 +9,33 @@ import UploadButton from "../src/components/UploadButton";
 
 const Home: NextPage = () => {
   const [uploadedImages, setUploadedImages] = useState<UploadedImageType[]>([]);
+  const fallbackImagesNumber = MAX_IMAGES_NUMBER - uploadedImages.length;
 
   const handleUploadImages = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length < 1) {
+    const uploadingImages = e.target.files;
+
+    if (!uploadingImages || uploadingImages.length < 1) {
       return;
     }
 
-    const newFiles = Array.from(e.target.files).map((file) =>
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
+    const newImages = Array.from(uploadingImages).map((image) =>
+      Object.assign(image, {
+        imageUrl: URL.createObjectURL(image),
       })
     );
 
-    setUploadedImages((existingFiles) => {
-      if (existingFiles.length === 0) {
-        return newFiles.slice(0, 4);
+    setUploadedImages((existingImages) => {
+      if (existingImages.length === 0) {
+        return newImages.slice(0, 4);
       } else {
-        return [...existingFiles, ...newFiles].slice(0, 4);
+        return [...existingImages, ...newImages].slice(0, 4);
       }
     });
   }, []);
 
-  const handleRemove = useCallback((preview: string) => {
+  const handleRemove = useCallback((imageUrl: string) => {
     setUploadedImages((existingImage) =>
-      existingImage.filter((image) => image.preview !== preview)
+      existingImage.filter((image) => image.imageUrl !== imageUrl)
     );
   }, []);
 
@@ -51,20 +54,18 @@ const Home: NextPage = () => {
         <div className="grid h-5/6 grid-cols-3 grid-rows-3 gap-4">
           {uploadedImages.map((image, index) => (
             <UploadedImage
-              key={image.preview}
+              key={image.imageUrl}
               image={image}
               index={index}
               onRemove={handleRemove}
             />
           ))}
-          {Array.from(Array(MAX_IMAGES_NUMBER - uploadedImages.length)).map(
-            (_, index) => (
-              <FallbackImage
-                key={index}
-                isLargeFallback={uploadedImages.length === 0 && index === 0}
-              />
-            )
-          )}
+          {[...new Array(fallbackImagesNumber)].map((_, index) => (
+            <FallbackImage
+              key={index}
+              isLargeFallback={uploadedImages.length === 0 && index === 0}
+            />
+          ))}
         </div>
 
         <div className="mt-4 w-1/2">

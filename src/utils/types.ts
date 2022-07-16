@@ -1,3 +1,3 @@
 export type UploadedImageType = File & {
-  preview: string;
+  imageUrl: string;
 };
