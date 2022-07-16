@@ -1,6 +1,6 @@
 import { useCallback, useState, ChangeEvent } from "react";
 import type { NextPage } from "next";
-import Image from "next/image";
+import Head from "next/head";
 import { MAX_IMAGES_NUMBER } from "../src/utils/constant";
 import { UploadedImageType } from "../src/utils/types";
 import FallbackImage from "../src/components/FallbackImage";
@@ -32,6 +32,11 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto bg-blue-50 p-6">
+      <Head>
+        <title>Simple Photo Upload App</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+
       <div className="h-3/4 w-full font-bold sm:w-5/6 lg:h-[95%] lg:w-3/4 xl:w-[45%]">
         <div className="mb-2 text-xl">
           內観写真 (保管場所の様子かわがるもの)
