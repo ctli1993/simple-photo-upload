@@ -30,6 +30,12 @@ const Home: NextPage = () => {
     });
   }, []);
 
+  const handleRemove = useCallback((preview: string) => {
+    setUploadedImages((existingImage) =>
+      existingImage.filter((image) => image.preview !== preview)
+    );
+  }, []);
+
   return (
     <div className="flex h-screen w-full flex-col items-center overflow-y-auto bg-blue-50 p-6">
       <Head>
@@ -41,9 +47,15 @@ const Home: NextPage = () => {
         <div className="mb-2 text-xl">
           內観写真 (保管場所の様子かわがるもの)
         </div>
+
         <div className="grid h-5/6 grid-cols-3 grid-rows-3 gap-4">
           {uploadedImages.map((image, index) => (
-            <UploadedImage key={image.preview} image={image} index={index} />
+            <UploadedImage
+              key={image.preview}
+              image={image}
+              index={index}
+              onRemove={handleRemove}
+            />
           ))}
           {Array.from(Array(MAX_IMAGES_NUMBER - uploadedImages.length)).map(
             (_, index) => (
@@ -54,6 +66,7 @@ const Home: NextPage = () => {
             )
           )}
         </div>
+
         <div className="mt-4 w-1/2">
           <UploadButton
             disabled={uploadedImages.length === 4}

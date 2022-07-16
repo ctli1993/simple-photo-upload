@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import XIcon from "../../public/x.svg";
 import { UploadedImageType } from "../utils/types";
@@ -6,35 +5,32 @@ import { UploadedImageType } from "../utils/types";
 type UploadedImageProps = {
   image: UploadedImageType;
   index?: number;
+  onRemove: (preview: string) => void;
 };
 
 const UploadedImage: React.FunctionComponent<UploadedImageProps> = ({
   image,
   index,
+  onRemove,
 }) => {
-  const [hover, setHover] = useState<boolean>(false);
-
   return (
     <div
       key={image.preview}
-      className={`${
-        index === 0
-          ? "relative col-span-3 row-span-2 rounded bg-gray-200"
-          : "relative rounded bg-gray-200"
+      className={`group relative rounded bg-gray-200 ${
+        index === 0 && "col-span-3 row-span-2"
       }`}
-      onPointerEnter={() => setHover(true)}
-      onPointerLeave={() => setHover(false)}
     >
-      {/* {hover && ( */}
-      <div className="h-10 w-10 rounded-full bg-white text-aukai-blue-green">
-        <XIcon className="h-5 w-5 " />
+      <div
+        className="absolute top-2 right-2 z-50 rounded-full bg-white p-1 text-aukai-blue-green opacity-0 hover:cursor-pointer group-hover:opacity-100"
+        onClick={() => onRemove(image.preview)}
+      >
+        <XIcon className="h-6 w-6" />
       </div>
-      {/* )} */}
 
       <Image
         alt={`uploaded image - ${image.name}`}
         src={image.preview}
-        className="rounded"
+        className="z-10 rounded group-hover:opacity-50"
         layout="fill"
         objectFit="cover"
       />
