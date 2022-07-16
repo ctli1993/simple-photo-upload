@@ -2,14 +2,13 @@ import { useCallback, useState, ChangeEvent } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { MAX_IMAGES_NUMBER } from "../src/utils/constant";
+import { UploadedImageType } from "../src/utils/types";
+import FallbackImage from "../src/components/FallbackImage";
+import UploadedImage from "../src/components/UploadedImage";
 import UploadButton from "../src/components/UploadButton";
 
-type UploadedImage = File & {
-  preview: string;
-};
-
 const Home: NextPage = () => {
-  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<UploadedImageType[]>([]);
 
   const handleUploadImages = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length < 1) {
@@ -39,40 +38,15 @@ const Home: NextPage = () => {
         </div>
         <div className="grid h-5/6 grid-cols-3 grid-rows-3 gap-4">
           {uploadedImages.map((image, index) => (
-            <div
-              key={image.preview}
-              className={`${
-                index === 0
-                  ? "relative col-span-3 row-span-2 rounded bg-gray-200"
-                  : "relative rounded bg-gray-200"
-              }`}
-            >
-              <Image
-                alt={`uploaded image - ${image.name}`}
-                src={image.preview}
-                className="rounded"
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
+            <UploadedImage key={image.preview} image={image} index={index} />
           ))}
           {Array.from(Array(MAX_IMAGES_NUMBER - uploadedImages.length)).map(
-            (_, index) => {
-              if (uploadedImages.length === 0) {
-                return (
-                  <div
-                    key={index}
-                    className={`${
-                      index === 0
-                        ? "col-span-3 row-span-2 rounded bg-gray-200"
-                        : "rounded bg-gray-200"
-                    }`}
-                  />
-                );
-              } else {
-                return <div key={index} className="rounded bg-gray-200" />;
-              }
-            }
+            (_, index) => (
+              <FallbackImage
+                key={index}
+                isLargeFallback={uploadedImages.length === 0 && index === 0}
+              />
+            )
           )}
         </div>
         <div className="mt-4 w-1/2">
