@@ -1,34 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a simple photo upload app frontend built with TypeScript, Next.js, and Tailwind CSS
 
-## Getting Started
+## Check out the app
+You can checkout this app on [simple-photo-upload-app.vercel.app](https://simple-photo-upload-app.vercel.app/)
 
-First, run the development server:
+This web app is deployed on Vercel. Personally, I like Vercel for the fact that it is very simple and fast. When deploying an Next.js app on Vercel, I only need to connect the app's GitHub repo to Vercel, and with a few clicks, the deployment would be done.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Tech stacks selection
+- I choose TypeScript because the code completion feature provided by TypeScript makes me develop faster. Also, with type checking, it gives me more confidence on my code. Last but not least, if someone would like to maintain this app, explicitly defining type would make thier lives easier.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- I choose Next.js since Next.js pre-render pages. For this app, since it doesn't need to load data from the Server, Next.js pre-renders it with static site generation, resulting in better performance and SEO. This app got 100 and 91 respectively on [Google's Lighthouse test](https://web.dev/measure) without doing any special fine-tuning. Also, I really like the file-system based routing. This app only has one page, so we could not see the advantage here. Nevertheless, if the project sacles up, it would be very easy to organize. 
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- I choose Tailwind CSS cause functional CSS (or utility-first CSS) really made me rethink writing CSS. I was inspired by [this piece](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/) written by Adam Wathan. Reusable utilities make it fast to build a component. In my past experience, I usually write UI much faster in this way. 
