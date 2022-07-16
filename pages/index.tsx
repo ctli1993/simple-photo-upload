@@ -50,7 +50,10 @@ const Home: NextPage = () => {
           )}
         </div>
         <div className="mt-4 w-1/2">
-          <UploadButton onUpload={handleUploadImages} />
+          <UploadButton
+            disabled={uploadedImages.length === 4}
+            onUpload={handleUploadImages}
+          />
         </div>
       </div>
     </div>
