@@ -40,7 +40,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center overflow-y-auto bg-blue-50 p-6">
+    <div className="flex h-screen w-full flex-col items-center overflow-y-auto bg-white p-6">
       <Head>
         <title>Simple Photo Upload App</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
